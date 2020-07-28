@@ -1,0 +1,73 @@
+﻿<Window x:Class="Roots.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Roots"
+        xmlns:uc="clr-namespace:Roots.Controls"
+        mc:Ignorable="d"
+        x:Name="window"
+        Title="Roots" Height="600" Width="350">
+    <DockPanel >
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Plik">
+                <MenuItem Header="Nowy"
+                          Click="NewFileClicked"
+                          ToolTip="Utwórz nową listę"/>
+                <MenuItem Header="Otwórz"
+                          Click="OpenFileClicked"
+                          ToolTip="Otwórz istniejącą listę"/>
+                <MenuItem Header="Utwórz skrót"
+                          Click="CreateShortcutOnDesktop"
+                          ToolTip="Utwórz skrót na pulpicie"/>
+                <MenuItem Header="Dodaj do Autostart"
+                          Click="StartWithWindowsAutostart"
+                          IsEnabled="{Binding NotExistWindowsAutostart, ElementName=window, Mode=TwoWay}"
+                          ToolTip="Uruchamiaj program podszas startu Windows"/>
+                <MenuItem Header="Usuń z Autostart"
+                          Click="DeleteFromWindowsAutostart"
+                          IsEnabled="{Binding ExistInWindowsAutostart, ElementName=window, Mode=TwoWay}"
+                          ToolTip="Przestań uruchamiać program podczas starty Windows"/>
+                <Separator/>
+                <MenuItem Header="Zamknij"
+                          Click="ExitClicked"
+                          ToolTip="Zamknij program"/>
+            </MenuItem>
+            <MenuItem Header="Edytuj">
+                <MenuItem Header="Dodaj"
+                          Click="ShowNewBranchWindowClicked"
+                          ToolTip="Dodaj nową osobę do listy"/>
+                <MenuItem Header="Zmodyfikuj"
+                          Click="UpdateSelectedBranchWindowClicked"
+                          ToolTip="Zmień szczegóły zaznaczonej osoby"/>
+                <MenuItem Header="Usuń"
+                          Click="DeleteSelectedBrancClicked"
+                          ToolTip="Usuń zaznaczoną osobę"/>
+
+            </MenuItem>
+        </Menu>
+        <ListView ItemsSource="{Binding FamilyMemberList, ElementName=window, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedMember, ElementName=window, Mode=TwoWay}"
+                  Height="540"
+                  Margin="0 5 0 0"
+                  MouseDoubleClick="UpdateSelectedBranchWindowClicked">
+
+            <ListView.ContextMenu>
+                <ContextMenu >
+                    <MenuItem Header="Dodaj"
+                              Click="ShowNewBranchWindowClicked"/>
+                    <MenuItem Header="Zmodyfikuj"
+                              Click="UpdateSelectedBranchWindowClicked"/>
+                    <Separator/>
+                    <MenuItem Header="Usuń"
+                              Click="DeleteSelectedBrancClicked"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <uc:MemberControl Member="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+</Window>
