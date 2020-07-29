@@ -218,29 +218,18 @@ namespace Roots
 
         private void StartWithWindowsAutostart(object sender, RoutedEventArgs e)
         {
-            WshShell shell = new WshShell();
-            string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Start Menu\Programs\Startup\Roots.lnk";
-            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
-            shortcut.Description = "New shortcut for a Roots";
-            shortcut.Hotkey = "";
-            shortcut.TargetPath = WorkingDirectory + @"\Roots.exe";
-            shortcut.WorkingDirectory = WorkingDirectory;
-            shortcut.Save();
-            IsExistInWindowsAutostart();
+            AutostartManager.Autostart(WorkingDirectory);
         }
 
         private void DeleteFromWindowsAutostart(object sender, RoutedEventArgs e)
         {
-            string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Start Menu\Programs\Startup\Roots.lnk";
-            File.Delete(shortcutAddress);
-            IsExistInWindowsAutostart();
+            AutostartManager.RemoveFromAutostart();
         }
 
         private void IsExistInWindowsAutostart()
         {
-            string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Start Menu\Programs\Startup\Roots.lnk";
-            ExistInWindowsAutostart = File.Exists(shortcutAddress);
-            NotExistWindowsAutostart = !File.Exists(shortcutAddress);
+            ExistInWindowsAutostart = AutostartManager.IsAutostart();
+            NotExistWindowsAutostart = !ExistInWindowsAutostart;
         }
     }
 }

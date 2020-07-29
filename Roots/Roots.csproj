@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutostartManager.cs" />
     <Compile Include="ConfiramtionWindow.xaml.cs">
       <DependentUpon>ConfiramtionWindow.xaml</DependentUpon>
     </Compile>
