@@ -27,22 +27,6 @@ namespace Roots
     public partial class MainWindow : Window
     {
 
-        private int actualMonth;
-
-        public int ActualMonth
-        {
-            get { return actualMonth; }
-            set { actualMonth = value; }
-        }
-
-        private string names;
-
-        public string Names
-        {
-            get { return names; }
-            set { names = value; }
-        }
-
         private string workingDirectory;
 
         public string WorkingDirectory
@@ -50,7 +34,6 @@ namespace Roots
             get { return workingDirectory; }
             set { workingDirectory = value; }
         }
-
 
         private static string filePath;
 
@@ -91,15 +74,6 @@ namespace Roots
         // Using a DependencyProperty as the backing store for SelectedMember.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedMemberProperty =
             DependencyProperty.Register("SelectedMember", typeof(Branch), typeof(MainWindow), new PropertyMetadata(null));
-
-        private List<Branch> thisMonthMembersAnniversarys;
-
-        public List<Branch> ThisMonthMembersAnniversary
-        {
-            get { return thisMonthMembersAnniversarys; }
-            set { thisMonthMembersAnniversarys = value; }
-        }
-
 
         public List<Branch> FamilyMemberList
         {
@@ -175,15 +149,6 @@ namespace Roots
             var confiramtionWindow = new ConfiramtionWindow();
             bool confirmationResult = (bool)confiramtionWindow.ShowDialog();
 
-            //if (confirmationResult == true && FilePath != null)
-            //{
-            //    using (SQLite.SQLiteConnection connection = new SQLite.SQLiteConnection(FilePath))
-            //    {
-            //        connection.CreateTable<Branch>();
-            //        connection.Delete(SelectedMember);
-            //        SelectedMember = FamilyMemberList.First<Branch>();
-            //    }
-            //}
             DataAccess.DeleteFromDatabase(SelectedMember, confirmationResult, FilePath);
             SelectedMember = FamilyMemberList.First<Branch>();
             confiramtionWindow.Close();
@@ -192,28 +157,12 @@ namespace Roots
 
         private string ActualAnniversarysMessage()
         {
-            ActualMonth = DateTime.Now.Month;
-            ThisMonthMembersAnniversary = FamilyMemberList.Where(familyMember => (familyMember.MonthOfPersonalAnniversary == ActualMonth)).ToList();
-            Names = "W tym miesiący urodziny lub imieniny mają: ";
-            foreach (var selectedMember in ThisMonthMembersAnniversary)
-            {
-                Names = Names + "\n" + " " + selectedMember.Firstname + " " + selectedMember.Lastname + " " + " " + selectedMember.TypeOfPersonalAnniversary + " " + selectedMember.PersonalAnniversary;
-            }
-
-            return Names;
+            return AnniverseryMessageManager.ShowAnniversary(FamilyMemberList);
         }
 
         private void CreateShortcutOnDesktop(object sender, RoutedEventArgs e)
         {
-            object shDesktop = (object)"Desktop";
-            WshShell shell = new WshShell();
-            string shortcutAddress = (string)shell.SpecialFolders.Item(ref shDesktop) + @"\Roots.lnk";
-            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
-            shortcut.Description = "New shortcut for a Roots";
-            shortcut.Hotkey = "";
-            shortcut.TargetPath = WorkingDirectory + @"\Roots.exe";
-            shortcut.WorkingDirectory = WorkingDirectory;
-            shortcut.Save();
+            ShortcutManager.CreateShortCutOnDesktop(WorkingDirectory);
         }
 
         private void StartWithWindowsAutostart(object sender, RoutedEventArgs e)

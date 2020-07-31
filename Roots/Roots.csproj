@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnniverseryMessageManager.cs" />
     <Compile Include="AutostartManager.cs" />
     <Compile Include="ConfiramtionWindow.xaml.cs">
       <DependentUpon>ConfiramtionWindow.xaml</DependentUpon>
@@ -128,6 +129,7 @@
     <Compile Include="SelectedBranchWindow.xaml.cs">
       <DependentUpon>SelectedBranchWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShortcutManager.cs" />
     <Page Include="ConfiramtionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
