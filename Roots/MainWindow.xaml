@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Roots"
         xmlns:uc="clr-namespace:Roots.Controls"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         x:Name="window"
-        Title="Roots" Height="600" Width="350">
-    <DockPanel >
+        Title="Birthdays and anniversaries" Height="600" Width="350">
+    <DockPanel x:Name="RootWindow">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Plik">
                 <MenuItem Header="Nowy"
@@ -43,8 +44,18 @@
                 <MenuItem Header="Usuń"
                           Click="DeleteSelectedBrancClicked"
                           ToolTip="Usuń zaznaczoną osobę"/>
-
             </MenuItem>
+        </Menu>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Dodaj"
+                      Click="ShowNewBranchWindowClicked"
+                      ToolTip="Dodaj nową osobę do listy"></MenuItem>
+            <MenuItem Header="Zmodyfikuj"
+                          Click="UpdateSelectedBranchWindowClicked"
+                          ToolTip="Zmień szczegóły zaznaczonej osoby"/>
+            <MenuItem Header="Usuń"
+                          Click="DeleteSelectedBrancClicked"
+                          ToolTip="Usuń zaznaczoną osobę"/>
         </Menu>
         <ListView ItemsSource="{Binding FamilyMemberList, ElementName=window, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedMember, ElementName=window, Mode=TwoWay}"

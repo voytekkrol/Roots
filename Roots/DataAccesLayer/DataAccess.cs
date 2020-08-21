@@ -41,6 +41,7 @@ namespace Roots.DataAccesLayer
             {
                 familyMemberList = new List<Branch>();
             }
+
             using (SQLite.SQLiteConnection connectionToMembersList = new SQLite.SQLiteConnection(App.databasePath))
             {
                 connectionToMembersList.CreateTable<MembersDatabase>();
