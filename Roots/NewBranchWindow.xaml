@@ -134,7 +134,7 @@
                  Grid.ColumnSpan="4"
                  Grid.Row="4"
                  Margin="8"
-                 Text="{Binding UpdatedBranch.TypeOfPersonalAnniversary, ElementName=window, Mode=TwoWay}"/>
+                 Text="{Binding NewBranch.TypeOfPersonalAnniversary, ElementName=window, Mode=TwoWay}"/>
         <Grid Grid.Row="6"
               Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>

@@ -28,7 +28,7 @@
                 <MenuItem Header="Usuń z Autostart"
                           Click="DeleteFromWindowsAutostart"
                           IsEnabled="{Binding ExistInWindowsAutostart, ElementName=window, Mode=TwoWay}"
-                          ToolTip="Przestań uruchamiać program podczas starty Windows"/>
+                          ToolTip="Przestań uruchamiać program podczas startu Windows"/>
                 <Separator/>
                 <MenuItem Header="Zamknij"
                           Click="ExitClicked"
@@ -47,15 +47,30 @@
             </MenuItem>
         </Menu>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Dodaj"
-                      Click="ShowNewBranchWindowClicked"
-                      ToolTip="Dodaj nową osobę do listy"></MenuItem>
-            <MenuItem Header="Zmodyfikuj"
-                          Click="UpdateSelectedBranchWindowClicked"
-                          ToolTip="Zmień szczegóły zaznaczonej osoby"/>
-            <MenuItem Header="Usuń"
-                          Click="DeleteSelectedBrancClicked"
-                          ToolTip="Usuń zaznaczoną osobę"/>
+            <MenuItem Click="ShowNewBranchWindowClicked"
+                      ToolTip="Dodaj nową osobę do listy">
+                <MenuItem.Header>
+                    <StackPanel>
+                        <Image Source="icons8-add-48.png" Width="24" Height="24"/>
+                    </StackPanel>                    
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="UpdateSelectedBranchWindowClicked"
+                      ToolTip="Zmień szczegóły zaznaczonej osoby">
+                <MenuItem.Header>
+                    <StackPanel>
+                        <Image Source="icons8-edit-file-48.png" Width="20" Height="20"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="DeleteSelectedBrancClicked"
+                      ToolTip="Usuń zaznaczoną osobę">
+                <MenuItem.Header>
+                    <StackPanel>
+                        <Image Source="icons8-delete-48.png" Width="20" Height="20"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <ListView ItemsSource="{Binding FamilyMemberList, ElementName=window, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedMember, ElementName=window, Mode=TwoWay}"
